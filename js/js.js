@@ -1,10 +1,13 @@
-let btn = document.querySelector(".btn")
+let buttons = document.querySelectorAll("button[data-modal]")
 let modal = document.querySelector(".modal")
 let close = document.querySelector(".modal__close")
 
-btn.onclick = () => {
-    modal.classList.add("show")
-}
+buttons.forEach(btn => {
+    btn.onclick = () => {
+        modal.classList.add("show")
+    }
+})
+
 close.onclick = () => {
     modal.classList.remove("show")
 }
