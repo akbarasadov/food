@@ -5,6 +5,7 @@ let close = document.querySelector(".modal__close")
 buttons.forEach(btn => {
     btn.onclick = () => {
         modal.classList.add("show")
+        modal.classList.add("fade")
     }
 })
 
@@ -43,6 +44,7 @@ function slideShow() {
     }
     slides.forEach(slide => slide.classList.add("hide", "fide"));
     slides[idx].classList.remove("hide")
+
     current.innerHTML = String(idx + 1).padStart(2, 0)
 }
 
@@ -71,3 +73,38 @@ items.forEach((item, index) => {
         tab[index].classList.remove("hide")
     }
 })
+
+//Создаем новую переменную и подключаем к классам
+let seconds = document.querySelector("#seconds")
+let minutes = document.querySelector("#minutes")
+let hours = document.querySelector("#hours")
+let days = document.querySelector("#days")
+
+//Дата завершения акции
+let deadline = "2025-05-20 00:00"
+
+//Обновляем каждую секунду
+let time = setInterval(() => {
+
+    //Здесь мы находим время до конца акции
+    let t = Date.parse(deadline) - Date.parse(new Date())
+
+
+    if (t > -1) {
+        //Считаем сколько секунды,минуты,часов и дней осталось до конца акции
+        seconds.textContent = String(Math.floor(t / 1000 % 60)).padStart(2, "0")
+        minutes.textContent = String(Math.floor(t / 1000 / 60 % 60)).padStart(2, "0")
+        hours.textContent = String(Math.floor(t / 1000 / 60 / 60 % 24)).padStart(2, "0")
+        days.textContent = String(Math.floor(t / 1000 / 60 / 60 / 24)).padStart(2, "0")
+    } else {
+        //Остановим обновление
+        clearInterval(time)
+
+        const jsConfetti = new JSConfetti();
+
+    jsConfetti.addConfetti({
+        emojis: ['🌈','💥', '✨', '💫','🍎','🥑','🍌','🍉','🍍','🍓'],
+    }).then(() => jsConfetti.addConfetti())
+
+    }
+}, 1000)
