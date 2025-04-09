@@ -103,7 +103,7 @@ let time = setInterval(() => {
         const jsConfetti = new JSConfetti();
 
     jsConfetti.addConfetti({
-        emojis: ['🌈','💥', '✨', '💫','🍎','🥑','🍌','🍉','🍍','🍓'],
+
     }).then(() => jsConfetti.addConfetti())
 
     }
