@@ -102,9 +102,52 @@ let time = setInterval(() => {
 
         const jsConfetti = new JSConfetti();
 
-    jsConfetti.addConfetti({
+        jsConfetti.addConfetti({
 
-    }).then(() => jsConfetti.addConfetti())
+        }).then(() => jsConfetti.addConfetti())
 
     }
 }, 1000)
+
+let genderBtn = document.querySelectorAll("#gender .calculating__choose-item")
+let inputs = document.querySelectorAll("#act input")
+let active = document.querySelectorAll("#akb .calculating__choose-item")
+let calc = document.querySelector(".calculating__result span")
+
+
+
+let data = {
+        gender: "woman"
+    }
+
+genderBtn.forEach(btn => {
+    
+    btn.onclick = () => {
+        genderBtn.forEach(gender => gender.classList.remove("calculating__choose-item_active"))
+        btn.classList.add("calculating__choose-item_active")
+        data.gender = btn.getAttribute("data-gender")
+        console.log(data.gender);
+
+        inputs.forEach(input => {
+            input.oninput = () => {
+                data[input.id] = input.value
+
+                if (data.gender === "woman") {
+                    calc.textContent = Math.floor(655.1 + (9.563 * data.weight) + (1.85 * data.height) - (4.676 * data.age))
+                } else if (data.gender === "man") {
+                    calc.textContent = Math.floor(66.5 + (13.75 * data.weight) + (5.003 * data.height) - (6.775 * data.age))
+                }
+            }
+        })
+    }
+})
+
+active.forEach(act => {
+    act.onclick = () => {
+        active.forEach(activ => activ.classList.remove("calculating__choose-item_active"))
+        act.classList.add("calculating__choose-item_active")
+        data["activities"] = act.id
+
+
+    }
+})
